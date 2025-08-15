@@ -4,8 +4,6 @@ import cors from 'cors'
 import { createServer, type Server } from 'http'
 import { WebSocketServer, type WebSocket } from 'ws'
 
-import './config/database'
-
 import adminRoutes from './routes/admin-routes'
 import userRoutes from './routes/user-routes'
 import transcribeRoutes from './routes/transcribe-routes'

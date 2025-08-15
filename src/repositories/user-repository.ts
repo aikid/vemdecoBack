@@ -1,40 +1,37 @@
-import user from '../models/user'
-
 import type * as UserTypes from '../config/types/user-types'
-import mongoose from 'mongoose'
+import { prisma } from '../prisma'
 
 class UserRepositoties {
   async create(body: UserTypes.createUser) {
-    return await user.create(body)
+    return prisma.user.create(body)
   }
 
   async findByEmail(email: string) {
-    return await user.findOne({ email })
+    return prisma.user.findOne({ email })
   }
 
   async findByAll() {
-    return await user.find()
+    return prisma.user.find()
   }
 
   async findByDocument(document: string) {
-    return await user.findOne({ document })
+    return prisma.user.findOne({ document })
   }
 
   async findById(id: string) {
-    return await user.findById(id)
+    return prisma.user.findById(id)
   }
 
   async findByEmailAndUpdatePassword(email: string, password: string) {
     const query = { email }
-    return await user.findOneAndUpdate(query, { $set: { password } })
+    return prisma.user.findOneAndUpdate(query, { $set: { password } })
   }
 
   async update(body: UserTypes.updateUser) {
-    const { _id, ...rest } = body
-    const userId = new mongoose.Types.ObjectId(_id)
+    const { id, ...rest } = body
 
-    const userUpdated = await user.findByIdAndUpdate(
-      userId,
+    const userUpdated = prisma.user.findByIdAndUpdate(
+      id,
       { $set: rest },
       { new: true }
     )
