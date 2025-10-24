@@ -42,8 +42,7 @@ export class AuthController {
     try {
       const {email,password} = body
       const authToken = await this.authService.signIn(email, password);
-      const authTokenOCPP = await this.authService.signInOCPP();
-      return {authToken, authTokenOCPP};
+      return authToken;
     } catch (error) {
       console.error(error);
       throw new HttpException(`Failed to create a user: ${error?.response}`, HttpStatus.INTERNAL_SERVER_ERROR);
